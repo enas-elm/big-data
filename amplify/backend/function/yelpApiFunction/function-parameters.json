@@ -1,0 +1,19 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "restaurants": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "reviews": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}
