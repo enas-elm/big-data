@@ -15,30 +15,6 @@
     },
     "s3Key": {
       "Type": "String"
-    },
-    "storagerestaurantsName": {
-      "Type": "String",
-      "Default": "storagerestaurantsName"
-    },
-    "storagerestaurantsArn": {
-      "Type": "String",
-      "Default": "storagerestaurantsArn"
-    },
-    "storagerestaurantsStreamArn": {
-      "Type": "String",
-      "Default": "storagerestaurantsStreamArn"
-    },
-    "storagereviewsName": {
-      "Type": "String",
-      "Default": "storagereviewsName"
-    },
-    "storagereviewsArn": {
-      "Type": "String",
-      "Default": "storagereviewsArn"
-    },
-    "storagereviewsStreamArn": {
-      "Type": "String",
-      "Default": "storagereviewsStreamArn"
     }
   },
   "Conditions": {
@@ -71,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getRestaurants",
+            "sentimentAnalyser",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getRestaurants",
+                  "sentimentAnalyser",
                   "-",
                   {
                     "Ref": "env"
@@ -93,24 +69,6 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "STORAGE_RESTAURANTS_NAME": {
-              "Ref": "storagerestaurantsName"
-            },
-            "STORAGE_RESTAURANTS_ARN": {
-              "Ref": "storagerestaurantsArn"
-            },
-            "STORAGE_RESTAURANTS_STREAMARN": {
-              "Ref": "storagerestaurantsStreamArn"
-            },
-            "STORAGE_REVIEWS_NAME": {
-              "Ref": "storagereviewsName"
-            },
-            "STORAGE_REVIEWS_ARN": {
-              "Ref": "storagereviewsArn"
-            },
-            "STORAGE_REVIEWS_STREAMARN": {
-              "Ref": "storagereviewsStreamArn"
             }
           }
         },
@@ -131,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "dataLambdaRoleecbdd77b",
+            "dataLambdaRole8d417334",
             {
               "Fn::Join": [
                 "",
                 [
-                  "dataLambdaRoleecbdd77b",
+                  "dataLambdaRole8d417334",
                   "-",
                   {
                     "Ref": "env"
@@ -202,89 +160,6 @@
                   }
                 ]
               }
-            }
-          ]
-        }
-      }
-    },
-    "AmplifyResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:Put*",
-                "dynamodb:Create*",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PartiQLInsert",
-                "dynamodb:Get*",
-                "dynamodb:BatchGetItem",
-                "dynamodb:List*",
-                "dynamodb:Describe*",
-                "dynamodb:Scan",
-                "dynamodb:Query",
-                "dynamodb:PartiQLSelect"
-              ],
-              "Resource": [
-                {
-                  "Ref": "storagerestaurantsArn"
-                },
-                {
-                  "Fn::Join": [
-                    "/",
-                    [
-                      {
-                        "Ref": "storagerestaurantsArn"
-                      },
-                      "index/*"
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:Put*",
-                "dynamodb:Create*",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PartiQLInsert",
-                "dynamodb:Get*",
-                "dynamodb:BatchGetItem",
-                "dynamodb:List*",
-                "dynamodb:Describe*",
-                "dynamodb:Scan",
-                "dynamodb:Query",
-                "dynamodb:PartiQLSelect"
-              ],
-              "Resource": [
-                {
-                  "Ref": "storagereviewsArn"
-                },
-                {
-                  "Fn::Join": [
-                    "/",
-                    [
-                      {
-                        "Ref": "storagereviewsArn"
-                      },
-                      "index/*"
-                    ]
-                  ]
-                }
-              ]
             }
           ]
         }
