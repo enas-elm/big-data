@@ -6,7 +6,6 @@ import boto3
 import os
 from collections import Counter
 
-# Assurez-vous que les ressources nécessaires de NLTK sont téléchargées (si ce n'est pas déjà fait)
 nltk.download('punkt')
 nltk.download('punkt_tab')
 
@@ -14,7 +13,7 @@ nltk.download('punkt_tab')
 sentiment_analysis = pipeline("sentiment-analysis")
 
 # Charger les variables d'environnement depuis le fichier .env
-load_dotenv()  # charge les variables d'environnement du fichier .env
+load_dotenv() 
 
 # Récupérer les variables d'environnement
 aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
@@ -106,9 +105,9 @@ def update_global_sentiment_in_dynamodb_reviews(review_id, sentiment):
             UpdateExpression="SET sentiment = :s",
             ExpressionAttributeValues={':s': sentiment}
         )
-        print(f"✅ Sentiment mis à jour pour l'avis {review_id}: {sentiment}")
+        print(f"Sentiment mis à jour pour l'avis {review_id}: {sentiment}")
     except Exception as e:
-        print(f"❌ Erreur lors de la mise à jour du sentiment pour l'avis {review_id}: {str(e)}")
+        print(f"Erreur lors de la mise à jour du sentiment pour l'avis {review_id}: {str(e)}")
 
 # Mise à jour du sentiment global dans DynamoDB pour chaque restaurant
 def update_global_sentiment_in_dynamodb_restaurants(restaurant_id, global_sentiment):
@@ -144,6 +143,6 @@ for restaurant_id, comments in reviews.items():
         # Mise à jour du sentiment global dans DynamoDB pour le restaurant
         update_global_sentiment_in_dynamodb_restaurants(restaurant_id, global_sentiment)
 
-        print(f"📊 Restaurant ID: {restaurant_id} - Sentiment Global: {global_sentiment}")
+        print(f"Restaurant ID: {restaurant_id} - Sentiment Global: {global_sentiment}")
     except Exception as e:
-        print(f"❌ Erreur lors du traitement du restaurant {restaurant_id}: {str(e)}")
+        print(f"Erreur lors du traitement du restaurant {restaurant_id}: {str(e)}")

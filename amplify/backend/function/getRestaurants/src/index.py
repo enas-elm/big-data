@@ -17,7 +17,7 @@ dynamodb = boto3.resource(
     'dynamodb',
     aws_access_key_id=aws_access_key_id,
     aws_secret_access_key=aws_secret_access_key,
-    region_name='eu-west-3'
+    region_name='eu-west-1'
 )
 
 table_restos = dynamodb.Table('restaurants-dev')
@@ -51,8 +51,8 @@ def handler(event, context):
 import http.client
 
 def send_to_api(restaurants):
-    API_HOST = "a16go6fcc8.execute-api.eu-west-1.amazonaws.com" 
-    API_PATH = "/getRestos"  
+    API_HOST = "1tk1tcoxg9.execute-api.eu-west-1.amazonaws.com" 
+    API_PATH = "/getRestaurants"  
 
     headers = {
         'Content-Type': 'application/json'
