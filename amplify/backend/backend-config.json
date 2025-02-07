@@ -140,6 +140,24 @@
       "service": "Lambda"
     }
   },
+  "parameters": {
+    "AMPLIFY_function_yelpApiFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "yelpApiFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_yelpApiFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "yelpApiFunction"
+        }
+      ]
+    }
+  },
   "storage": {
     "bigdata": {
       "dependsOn": [],
